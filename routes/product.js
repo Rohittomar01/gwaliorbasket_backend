@@ -97,8 +97,10 @@ router.get('/fetch_all_DealsProducts', function (req, res, next) {
 
   })
 });
+// for favourate picks page in userinterface 
+
 router.get('/fetch_all_TrendingProducts', function (req, res, next) {
-  pool.query("select * from products where trending='yes' ", function (error, result) {
+  pool.query("select * from products where trending='yes'", function (error, result) {
     if (error) {
       console.log(error)
       res.status(500).json({ status: false, message: 'Server error....' })
@@ -109,6 +111,9 @@ router.get('/fetch_all_TrendingProducts', function (req, res, next) {
 
   })
 });
+
+// for trending products page in userinterface 
+
 
 
 module.exports = router;

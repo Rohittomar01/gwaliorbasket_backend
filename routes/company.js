@@ -9,11 +9,11 @@ router.post("/add_new_company", upload.single('defaultlogo'), function (req, res
 
         if (error) {
             console.log("xxxxxxx", error)
-            res.status(500).json({ status: false, massage: "Server error...." });
+            res.status(500).json({ status: false, message: "Server error...." });
         }
         else {
             console.log(result)
-            res.status(200).json({ status: true, message: "company resitered succesfully" });
+            res.status(200).json({ status: true, message: "company registered succesfully" });
         }
     })
 });

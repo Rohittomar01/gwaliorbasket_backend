@@ -14,6 +14,7 @@ var categoryRouter = require("./routes/category");
 var ProductRouter = require("./routes/product");
 var listProductRouter = require('./routes/ListProduct');
 var adminRouter = require('./routes/admin');
+var addressRouter=require('./routes/Address')
 var bannerRouter = require('./routes/BannerUpload');
 const bodyParser = require('body-parser');
 
@@ -40,7 +41,8 @@ app.use('/category', categoryRouter);
 app.use('/product', ProductRouter)
 app.use('/listproduct', listProductRouter)
 app.use('/admin', adminRouter)
-app.use('/banner', bannerRouter)
+app.use('/banner', bannerRouter);
+app.use('/address', addressRouter);
 
 
 

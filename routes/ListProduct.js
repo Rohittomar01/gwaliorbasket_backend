@@ -21,14 +21,9 @@ router.get('/fetch_catogeryid', function (req, res) {
     })
 
 });
-router.get('/fetch_all_Product', function (req, res, next) {
-    const categoryid = req.params.body;
+router.post('/fetch_all_Product', function (req, res, next) {
 
-    console.log("categoryid", categoryid);
-
-    console.log("body", req.body.categoryId)
-
-    pool.query("select * from products where categoryid=6", [req.body.categoryId], function (error, result) {
+    pool.query("select * from products where categoryid=?", [req.body.categoryId], function (error, result) {
         if (error) {
             console.log(error)
             res.status(500).json({ status: false, message: 'Server error....' })
@@ -106,9 +101,9 @@ router.post('/delete_listproduct_details', function (req, res) {
         }
     })
 })
-router.get('/fetchallproducts', function (req, res, next) {
+router.post('/fetchallproducts', function (req, res, next) {
     // console.log(req.body.categoryid)
-    pool.query("select * from listproduct where categoryid='6'", function (error, result) {
+    pool.query("select PL.*,  (select p.productname from products p where p.productid=PL.productid ) as productname,(select p.image from products p where p.productid=PL.productid ) as productImage from listproduct  PL where PL.categoryid=?",[req.body.categoryid], function (error, result) {
         if (error) {
             console.log(error)
             res.status(500).json({ status: false, message: 'Server error....' })
@@ -119,6 +114,36 @@ router.get('/fetchallproducts', function (req, res, next) {
 
     })
 });
+
+// for Product_Add page  for Quantity
+router.post('/fetchallproduct_ByPID', function (req, res, next) {
+    // console.log(req.body.productid)
+    pool.query("select PL.*,  (select p.productname from products p where p.productid=PL.productid ) as productname,(select p.image from products p where p.productid=PL.productid ) as productImage from listproduct  PL where PL.productid=?",[req.body.productid], function (error, result) {
+        if (error) {
+            console.log(error)
+            res.status(500).json({ status: false, message: 'Server error....' })
+        }
+        else {
+            res.status(200).json({ status: true, data: result })
+        }
+
+    })
+});
+
+router.post('/fetchallfavourate_picks', function (req, res, next) {
+    // console.log(req.body.categoryid)
+    pool.query("select PL.*,  (select p.productname from products p  ) as productname,(select p.image from products p  ) as productImage from listproduct  PL ",[req.body.categoryid], function (error, result) {
+        if (error) {
+            console.log(error)
+            res.status(500).json({ status: false, message: 'Server error....' })
+        }
+        else {
+            res.status(200).json({ status: true, data: result })
+        }
+
+    })
+});
+
 
 
 module.exports = router;
